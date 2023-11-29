@@ -6,7 +6,7 @@ export type initStatePropsType = {
 }
 type ChangeThemeIdType = {
     type: 'SET_THEME_ID',
-    id: number
+    id: any
 }
 
 export const themeReducer = (state = initState, action: ChangeThemeIdType): initStatePropsType => { // fix any
@@ -24,4 +24,4 @@ export const themeReducer = (state = initState, action: ChangeThemeIdType): init
     }
 }
 
-export const changeThemeId = (id: number): any => ({type: 'SET_THEME_ID', id}) // fix any
+export const changeThemeId = (id: any) => ({type: 'SET_THEME_ID', id}) // fix any
