@@ -40,8 +40,8 @@ const HW13 = () => {
                 if (res.data.yourBody.success === true) {
                     setCode('Код 200!')
                     setImage(success200)
-                    setText(res.data.info)
-                    setInfo(res.data.errorText)
+                    setText(res.data.errorText)
+                    setInfo(res.data.info)
                 }
                 setDisabled(false)
             })
@@ -50,13 +50,13 @@ const HW13 = () => {
                 if (e.response?.status === 400) {
                     setCode('Код 400!')
                     setImage(error400)
-                    setText(e.response.data.info)
-                    setInfo(e.response.data.errorText)
+                    setText(e.response.data.errorText)
+                    setInfo(e.response.data.info)
                 } else if (e.response?.status === 500) {
                     setCode('Код 500!')
                     setImage(error500)
-                    setText(e.response?.data.info)
-                    setInfo(e.response?.data.errorText)
+                    setText(e.response.data.errorText)
+                    setInfo(e.response.data.info)
                 } else {
                     setCode('Error!')
                     setImage(errorUnknown)
