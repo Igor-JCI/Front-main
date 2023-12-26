@@ -40,52 +40,46 @@ const getTechs = (params: ParamsType) => {
 
 const HW15 = () => {
     const [sort, setSort] = useState('')
-    const [page, setPage] = useState(1)
-    const [count, setCount] = useState(4)
+    const [page, setPage] = useState(1) //
+    const [count, setCount] = useState(4) // size
     const [idLoading, setLoading] = useState(false)
-    const [totalCount, setTotalCount] = useState(100)
+    const [totalCount, setTotalCount] = useState(100) // all pages
     const [searchParams, setSearchParams] = useSearchParams()
     const [techs, setTechs] = useState<TechType[]>([])
 
-    const sendQuery = (params: any) => {
+    const sendQuery = (params: ParamsType) => {
         setLoading(true)
         getTechs(params)
             .then((res) => {
-                // делает студент
-
-                // сохранить пришедшие данные
-
-                //
+                if (res) {
+                    setTechs(res.data.techs)
+                }
             })
     }
 
     const onChangePagination = (newPage: number, newCount: number) => {
-        // делает студент
+        setPage(newPage)
+        setCount(newCount)
 
-        // setPage(
-        // setCount(
+        sendQuery({page: newPage, count: newCount, sort})
+        const countQuery: { count?: string } = newCount ? {count: newCount + ""} : {}
+        const newPageQuery: { page?: string } = newPage ? {page: newPage + ""} : {}
+        const queries = {...countQuery, ...newPageQuery}
+        setSearchParams(queries)
 
-        // sendQuery(
-        // setSearchParams(
-
-        //
     }
 
     const onChangeSort = (newSort: string) => {
-        // делает студент
-
-        // setSort(
-        // setPage(1) // при сортировке сбрасывать на 1 страницу
-
-        // sendQuery(
-        // setSearchParams(
-
-        //
+        setSort(newSort)
+        setPage(1)
+        sendQuery({page: 1, count, sort: newSort})
+        const newSortQuery = {sort: newSort, page: '1', count: count.toString()}
+        setSearchParams(newSortQuery)
     }
 
     useEffect(() => {
         const params = Object.fromEntries(searchParams)
-        sendQuery({page: params.page, count: params.count})
+        sendQuery({page: +params.page, count: +params.count, sort: params.sort})
         setPage(+params.page || 1)
         setCount(+params.count || 4)
     }, [])
