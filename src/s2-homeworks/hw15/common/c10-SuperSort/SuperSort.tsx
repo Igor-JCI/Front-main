@@ -13,12 +13,15 @@ export type SuperSortPropsType = {
 }
 
 export const pureChange = (sort: string, down: string, up: string) => {
-    if (!sort) {
-        return down
-    } else if (sort.startsWith("1")) {
-        return up
-    } else {
-        return down
+    switch (sort) {
+        case '':
+            return down
+        case down:
+            return up
+        case up:
+            return ''
+        default:
+            return down
     }
 }
 

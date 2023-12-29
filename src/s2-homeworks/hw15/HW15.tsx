@@ -52,8 +52,11 @@ const HW15 = () => {
         getTechs(params)
             .then((res) => {
                 if (res) {
-                    setTechs(res.data.techs)
+                    setTechs(res.data.techs);
                 }
+            })
+            .finally(() => {
+                setLoading(false);
             })
     }
 
@@ -79,7 +82,7 @@ const HW15 = () => {
 
     useEffect(() => {
         const params = Object.fromEntries(searchParams)
-        sendQuery({page: +params.page, count: +params.count, sort: params.sort})
+        sendQuery({page: +params.page || page, count: +params.count || count, sort: params.sort})
         setPage(+params.page || 1)
         setCount(+params.count || 4)
     }, [])
